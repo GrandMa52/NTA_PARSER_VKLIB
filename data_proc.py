@@ -1,6 +1,7 @@
 import json
 import pandas as pd
 from tqdm import tqdm
+from pars_config import Logger
 
 
 class Data_proc:
@@ -24,6 +25,9 @@ class Data_proc:
         Обработка выгруженных постов
         :return: None
         """
+        Logger.log.info('Запущена обработка постов')
+        print('Обновляем данные о постах')
+
         df_new_posts = pd.DataFrame(columns=['post_id', 'post_link', 'post_title', 'post_views',
                                              'post_likes', 'post_reposts', 'unique_views', 'unique_likes',
                                              'unique_reposts'])
@@ -52,4 +56,6 @@ class Data_proc:
         df_new_posts = self.calc_unique(df_new_posts, 'reposts')
 
         df_new_posts.iloc[:, 0:9].to_csv('posts.txt', sep='|', encoding='utf-8', index=False)
+
         print('Данные по постам обновлены')
+        Logger.log.info('Завершена обработка постов')
